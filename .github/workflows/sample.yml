@@ -3,9 +3,9 @@ name: CI/CD Pipeline
  
 # Triggers the workflow on push events to the 'main' branch and allows manual triggering
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:  # Adds the manual trigger option
  
 # Defines the jobs that make up the workflow
