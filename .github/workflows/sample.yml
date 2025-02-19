@@ -1,0 +1,53 @@
+# Name of the workflow
+name: CI/CD Pipeline
+ 
+# Triggers the workflow on push events to the 'main' branch and allows manual triggering
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Adds the manual trigger option
+ 
+# Defines the jobs that make up the workflow
+jobs:
+  # Job for building the project
+  build:
+    # Specifies that this job runs on the latest Ubuntu runner
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2  # Action to check out the repository code
+    - name: Build Project
+      run: echo "Building the project..."  # Placeholder command to simulate building the project
+ 
+  # Job for running unit tests
+  unit-tests:
+    # Specifies that this job runs on the latest Windows runner
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2  # Repeats the checkout to access the repository code
+    - name: Run Unit Tests
+      run: echo "Running unit tests..."  # Placeholder command to simulate running unit tests
+ 
+  # Job for running integration tests
+  integration-tests:
+    # Specifies dependencies on 'build' and 'unit-tests' jobs
+    needs: [build, unit-tests]
+    # Specifies that this job runs on the latest Ubuntu runner
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2  # Repeats the checkout to access the repository code
+    - name: Run Integration Tests
+      run: echo "Running integration tests..."  # Placeholder command to simulate integration tests
+ 
+  # Job for deploying to production
+  deploy:
+    # Only runs if the 'integration-tests' job is successful
+    needs: integration-tests
+    # Specifies that this job runs on the latest macOS runner
+    runs-on: macos-latest
+    # Ensures this job only runs if the push is to the 'main' branch
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v2  # Repeats the checkout to access the repository code
+    - name: Deploy to Production
+      run: echo "Deploying to production..."  # Placeholder command to simulate deploying to production
