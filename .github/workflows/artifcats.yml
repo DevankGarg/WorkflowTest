@@ -20,7 +20,7 @@ jobs:
           echo "Hi, I am storing this data in this file, so that I can use this in the subsequent jobs within this workflow run. I will upload this file to GitHub storage and download from there when needed in this workflow run." > file.txt
       
       - name: "Upload file as an artifact"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: file  # Name of the artifact
           path: file.txt  # Path to the file to upload
